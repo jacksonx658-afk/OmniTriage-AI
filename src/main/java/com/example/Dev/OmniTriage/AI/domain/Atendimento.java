@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Atendimento")
+@Table(name = "atendimentos")
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -16,21 +16,16 @@ public class Atendimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 2000)
     private String mensagem;
 
-    @Column(nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    @Column(nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private NivelUrgencia nivelUrgencia;
 
-    @Column(length = 4000)
     private String resposta;
 
-    @Column(nullable = false)
     private LocalDateTime dataCriacao;
 
     public Long getId() {
