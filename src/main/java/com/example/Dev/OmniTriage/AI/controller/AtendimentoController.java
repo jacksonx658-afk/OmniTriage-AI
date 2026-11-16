@@ -60,7 +60,7 @@ public class AtendimentoController {
         }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/excluir/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         if (service.listarAtendimentoPorId(id).isPresent()) {
             service.deletarAtendimento(id);
