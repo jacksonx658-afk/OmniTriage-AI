@@ -1,11 +1,15 @@
 package com.example.Dev.OmniTriage.AI.service;
-import com.example.Dev.OmniTriage.AI.domain.Atendimento;
+import com.example.Dev.OmniTriage.AI.domain.AtendimentoIaResponse;
+import com.example.Dev.OmniTriage.AI.domain.Categoria;
+import com.example.Dev.OmniTriage.AI.domain.NivelUrgencia;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.Map;
@@ -15,37 +19,53 @@ public class ChatGptService {
 
     private final DocumentacaoService documentacaoService;
     private final WebClient webClient;
-    private String apikey = System.getenv("API_KEY");
+    private final ObjectMapper objectMapper;
 
-    public ChatGptService(DocumentacaoService documentacaoService, WebClient webClient) {
+    @Value("${api.key}")
+    private String apikey;
+
+    @Value("${openai.model}")
+    private String model;
+
+
+    public ChatGptService(DocumentacaoService documentacaoService, WebClient webClient, ObjectMapper objectMapper) {
         this.documentacaoService = documentacaoService;
         this.webClient = webClient;
+        this.objectMapper = objectMapper;
     }
 
-    public Mono<String> generateAtendiment(String mensagemCliente) {
+    public Mono<AtendimentoIaResponse> generateAtendiment(String mensagemCliente) {
         String prompt = """
-                Você é um assistente de atendimento ao cliente.
+        Você é um assistente de atendimento ao cliente.
 
-                REGRAS:
-                - Responda SOMENTE com base na documentação abaixo.
-                - Se a documentação não cobrir o assunto, diga exatamente:
-                  "Vou encaminhar sua solicitação para um atendente humano."
-                - Nunca invente prazos, valores ou políticas.
-                - Seja cordial e objetivo.
+        REGRAS:
+        - Responda SOMENTE com base na documentação abaixo.
+        - Se a documentação não cobrir o assunto, use categoria OUTROS, urgência ALTA
+          e a resposta: "Vou encaminhar sua solicitação para um atendente humano."
+        - Nunca invente prazos, valores ou políticas.
+        - Seja cordial e objetivo.
 
-                DOCUMENTAÇÃO DA EMPRESA:
-                %s
+        FORMATO DA SAÍDA:
+        Responda APENAS com um JSON válido, sem texto antes ou depois e sem markdown:
+        {"categoria": "...", "nivelUrgencia": "...", "resposta": "..."}
 
-                MENSAGEM DO CLIENTE:
-                %s
-                """.formatted(documentacaoService.getDocumentacao(), mensagemCliente);
+        Valores permitidos:
+        - categoria: TROCA, REEMBOLSO, INFORMAR_DEFEITO, DUVIDA_REGRAS, OUTROS
+        - nivelUrgencia: BAIXA, MEDIA, ALTA
+
+        DOCUMENTAÇÃO DA EMPRESA:
+        %s
+
+        MENSAGEM DO CLIENTE:
+        %s
+        """.formatted(documentacaoService.getDocumentacao(), mensagemCliente);
 
 
         Map<String, Object> requestBody = Map.of(
-                "model", "gpt-6-luna",
+                "model", model,
                 "input", prompt
         );
-
+        System.out.println("MODELO ENVIADO: [" + model + "]");
         return webClient.post()
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + apikey)
@@ -65,13 +85,35 @@ public class ChatGptService {
                             }
                         }
                     }
-
-                    return "Nenhuma resposta foi gerada.";
+                    return "";
                 })
+                .map(this::converterJson)
                 .onErrorResume(WebClientResponseException.class, e -> {
                     System.out.println("ERRO DA IA: " + e.getResponseBodyAsString());
-                    return Mono.just("Não foi possível gerar a resposta.");
+                    return Mono.just(respostaPadrao());
                 });
+    }
+    private AtendimentoIaResponse converterJson(String texto) {
+        try {
+            String limpo = texto.replace("```json", "").replace("```", "").trim();
+            AtendimentoIaResponse ia = objectMapper.readValue(limpo, AtendimentoIaResponse.class);
+
+            if (ia.categoria() == null || ia.nivelUrgencia() == null
+                    || ia.resposta() == null || ia.resposta().isBlank()) {
+                return respostaPadrao();
+            }
+            return ia;
+        } catch (Exception e) {
+            System.out.println("JSON inválido da IA: " + texto);
+            return respostaPadrao();
+        }
+    }
+    private AtendimentoIaResponse respostaPadrao() {
+        return new AtendimentoIaResponse(
+                Categoria.OUTROS,
+                NivelUrgencia.ALTA,
+                "Vou encaminhar sua solicitação para um atendente humano."
+        );
     }
 }
 
