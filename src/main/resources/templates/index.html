@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OmniTriage AI - Atendimento</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<header>
+    <span class="logo">OmniTriage AI</span>
+    <nav>
+        <a th:href="@{/}">Atendimento</a>
+        <a th:href="@{/painel}">Painel</a>
+    </nav>
+</header>
+
+<main>
+    <h1>Como podemos ajudar?</h1>
+    <p class="subtitulo">Descreva sua solicitação e responderemos em instantes.</p>
+
+    <form th:action="@{/enviar}" method="post" id="formulario">
+        <textarea name="mensagem" rows="6" maxlength="1000" required
+                  placeholder="Ex.: Recebi meu pedido ontem e quero trocar o tamanho"
+                  th:text="${mensagem}"></textarea>
+        <button type="submit" id="botao">Enviar</button>
+    </form>
+
+    <div class="alerta erro" th:if="${erro}" th:text="${erro}"></div>
+
+    <section class="resposta" th:if="${resposta}">
+        <h2>Nossa resposta</h2>
+        <p th:text="${resposta}"></p>
+    </section>
+</main>
+
+<script>
+    document.getElementById('formulario').addEventListener('submit', function () {
+        var botao = document.getElementById('botao');
+        botao.disabled = true;
+        botao.textContent = 'Enviando...';
+    });
+</script>
+</body>
+</html>

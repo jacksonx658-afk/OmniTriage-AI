@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OmniTriage AI - Painel</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<header>
+    <span class="logo">OmniTriage AI</span>
+    <nav>
+        <a th:href="@{/}">Atendimento</a>
+        <a th:href="@{/painel}">Painel</a>
+    </nav>
+</header>
+
+<main class="largo">
+    <h1>Painel de atendimentos</h1>
+    <p class="subtitulo" th:text="${#lists.size(atendimentos)} + ' registro(s)'"></p>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Mensagem</th>
+                <th>Categoria</th>
+                <th>Urgência</th>
+                <th>Resposta</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="a : ${atendimentos}">
+                <td th:text="${#temporals.format(a.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${a.mensagem}"></td>
+                <td><span class="badge" th:text="${a.categoria}"></span></td>
+                <td>
+                    <span class="badge"
+                          th:classappend="'urgencia-' + ${a.nivelUrgencia}"
+                          th:text="${a.nivelUrgencia}"></span>
+                </td>
+                <td th:text="${a.resposta}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(atendimentos)}">
+                <td colspan="5" class="vazio">Nenhum atendimento registrado ainda.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>
