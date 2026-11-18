@@ -1,0 +1,69 @@
+DOCUMENTAÇÃO DE ATENDIMENTO AO CLIENTE
+(Exemplo: substitua os prazos, valores e regras pelos da sua empresa)
+
+==================================================
+1. TROCA
+==================================================
+- O cliente pode solicitar a troca em até 30 dias corridos após o recebimento do produto.
+- O produto deve estar sem sinais de uso, com etiquetas e na embalagem original.
+- A primeira troca por tamanho, cor ou modelo é gratuita.
+- A partir da segunda troca, o frete de envio é por conta do cliente.
+- Se o produto novo tiver valor maior, o cliente paga a diferença. Se tiver valor menor, a diferença é devolvida como crédito na loja.
+- Produtos personalizados ou em promoção de "última peça" não podem ser trocados, exceto em caso de defeito.
+
+==================================================
+2. REEMBOLSO
+==================================================
+- O cliente pode solicitar o reembolso em até 7 dias corridos após o recebimento (direito de arrependimento).
+- O produto deve ser devolvido sem uso e na embalagem original.
+- O reembolso é feito após o recebimento e a aprovação do produto devolvido pela nossa equipe.
+- Prazo do reembolso: até 10 dias úteis após a aprovação.
+- Forma de reembolso:
+  * Cartão de crédito: estorno na fatura, que pode levar até 2 faturas para aparecer.
+  * Pix ou boleto: devolução na conta informada pelo cliente, em nome do titular da compra.
+- O frete original só é reembolsado em casos de defeito ou erro da empresa.
+
+==================================================
+3. PRODUTO COM DEFEITO
+==================================================
+- O cliente deve informar o defeito em até 90 dias após o recebimento.
+- É obrigatório enviar fotos ou vídeo mostrando o defeito, junto com o número do pedido.
+- Após a análise, o cliente pode escolher entre troca por um produto igual, troca por outro produto ou reembolso integral.
+- Nos casos de defeito, o frete de devolução é por conta da empresa.
+- Prazo de análise: até 5 dias úteis após o recebimento das fotos.
+- Defeitos causados por mau uso, queda ou contato com líquidos não são cobertos.
+
+==================================================
+4. DÚVIDAS SOBRE REGRAS E POLÍTICAS
+==================================================
+- Prazo de entrega: informado no momento da compra, contado a partir da confirmação do pagamento.
+- Rastreamento: o código de rastreio é enviado por e-mail após a postagem do pedido.
+- Formas de pagamento aceitas: cartão de crédito, Pix e boleto bancário.
+- Cancelamento antes do envio: pode ser feito gratuitamente, com reembolso integral.
+- Cancelamento após o envio: segue as regras de reembolso (item 2).
+- Horário de atendimento humano: segunda a sexta, das 9h às 18h.
+
+==================================================
+5. CASOS QUE DEVEM SER ENCAMINHADOS A UM ATENDENTE HUMANO
+==================================================
+- Qualquer assunto que não esteja descrito nesta documentação.
+- Pedidos de exceção às regras (prazo vencido, produto usado, etc.).
+- Reclamações graves, ameaças de ação judicial ou menções a Procon.
+- Cobranças em duplicidade ou problemas de pagamento.
+- Produto danificado ou extraviado durante o transporte.
+- Cliente muito insatisfeito ou que peça explicitamente para falar com uma pessoa.
+
+==================================================
+6. CLASSIFICAÇÃO DE URGÊNCIA
+==================================================
+- ALTA: produto com defeito que oferece risco, cobrança indevida, pedido extraviado, ameaça de reclamação em órgãos de defesa do consumidor.
+- MEDIA: solicitações de reembolso, defeito sem risco, atraso na entrega.
+- BAIXA: dúvidas gerais, solicitações de troca simples, informações sobre políticas.
+
+==================================================
+7. TOM DE VOZ NAS RESPOSTAS
+==================================================
+- Sempre cordial, claro e objetivo.
+- Cumprimentar o cliente e agradecer o contato.
+- Nunca prometer prazos, valores ou condições que não estejam nesta documentação.
+- Em caso de dúvida, informar que o caso será encaminhado a um atendente humano.
